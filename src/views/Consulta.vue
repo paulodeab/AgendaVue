@@ -1,6 +1,6 @@
 <template>
   <div class="contatos">
-    <h2>Contatos Cadastrados</h2>
+    <h2>Contatos Cadastrados Até o Momento</h2>
     <table class="table is-fullwidth">
       <thead>
         <tr>
