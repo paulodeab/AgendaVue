@@ -8,16 +8,19 @@
           <th>Nome</th>
           <th>E-Mail</th>
           <th>Telefone</th>
+          <th>Ação</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="contato in contatos" :key="contato.id">
-          <td>{{contato.id}}</td>
-          <td>{{contato.nome}}</td>
-          <td>{{contato.email}}</td>
-          <td>{{contato.telefone}}</td>
+          <td>{{ contato.id }}</td>
+          <td>{{ contato.nome }}</td>
+          <td>{{ contato.email }}</td>
+          <td>{{ contato.telefone }}</td>
+          <td>
+            <button v-on:click="deletarContato(contato.id)">Deletar</button>
+          </td>
         </tr>
- 
       </tbody>
     </table>
   </div>
@@ -33,13 +36,28 @@ export default {
     };
   },
 
-  created: function getContatos() {
-    axios
-      .get("http://localhost:8080/agenda/todos")
-      .then((result) => (this.contatos = result.data));
+  created: function getContato() {
+    this.listarContato();
+  },
+
+  methods: {
+    listarContato() {
+      axios
+        .get("http://localhost:8080/agenda/todos")
+        .then((result) => (this.contatos = result.data));
+    },
+
+    deletarContato(id) {
+      axios
+        .delete(`http://localhost:8080/agenda/deletarcontato/${id}`)
+        .then((resultado) => {
+          console.log(resultado);
+          alert("Deletado com sucesso!!");
+          this.listarContato();
+        });
+    },
   },
 };
-
 </script>
 
 <style>
